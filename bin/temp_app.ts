@@ -21,38 +21,38 @@ const rootStack = new TempAppStack(app, 'TempAppStack', {
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
 
-// // NestedStack A
-// let nestA = new cdk.NestedStack(rootStack, 'NestedStackA');
-// new cdk.aws_s3.Bucket(nestA, "WebsiteBucketA", {});
-// new cdk.aws_s3.Bucket(nestA, "WebsiteBucketB", {});
-// new cdk.aws_dynamodb.Table(nestA, "TableA", {
-//   partitionKey: { name: 'id', type: cdk.aws_dynamodb.AttributeType.STRING }
-// });
+// NestedStack A
+let nestA = new cdk.NestedStack(rootStack, 'NestedStackA');
+new cdk.aws_s3.Bucket(nestA, "WebsiteBucketA", {});
+new cdk.aws_s3.Bucket(nestA, "WebsiteBucketB", {});
+new cdk.aws_dynamodb.Table(nestA, "TableA", {
+  partitionKey: { name: 'id', type: cdk.aws_dynamodb.AttributeType.STRING }
+});
 
-// // nestB
-// let nestB = new cdk.NestedStack(rootStack, 'NestedStackB');
-// new cdk.aws_sns.Topic(nestB, "NotificationTopic");
-// new cdk.aws_sqs.Queue(nestB, "MessageQueue");
+// nestB
+let nestB = new cdk.NestedStack(rootStack, 'NestedStackB');
+new cdk.aws_sns.Topic(nestB, "NotificationTopic");
+new cdk.aws_sqs.Queue(nestB, "MessageQueue");
 
-// // nestC in nestA
-// let nestC = new cdk.NestedStack(nestA, 'NestedStackC');
-// new cdk.aws_s3.Bucket(nestC, "nestCBucket");
+// nestC in nestA
+let nestC = new cdk.NestedStack(nestA, 'NestedStackC');
+new cdk.aws_s3.Bucket(nestC, "nestCBucket");
 
-// // nestD in nestB
-// let nestD = new cdk.NestedStack(nestB, 'NestedStackD');
-// new cdk.aws_dynamodb.Table(nestD, 'nestDTable', {
-//   partitionKey: {name: 'part-name', type: AttributeType.STRING}
-// });
-// // nestE in nestC
-// let nestE = new cdk.NestedStack(nestC, 'NestedStackE');
-// new cdk.aws_cloudwatch.Alarm(nestE, "CPUUtilizationAlarm", {
-//   metric: new cdk.aws_cloudwatch.Metric({
-//     namespace: 'AWS/EC2',
-//     metricName: 'CPUUtilization',
-//   }),
-//   threshold: 70,
-//   evaluationPeriods: 2,
-// });
-// // nestF in nestE
-// let nestF = new cdk.NestedStack(nestE, 'NestedStackF');
-// new cdk.aws_s3.Bucket(nestF, 'nestFBucket', {})
+// nestD in nestB
+let nestD = new cdk.NestedStack(nestB, 'NestedStackD');
+new cdk.aws_dynamodb.Table(nestD, 'nestDTable', {
+  partitionKey: {name: 'part-name', type: AttributeType.STRING}
+});
+// nestE in nestC
+let nestE = new cdk.NestedStack(nestC, 'NestedStackE');
+new cdk.aws_cloudwatch.Alarm(nestE, "CPUUtilizationAlarm", {
+  metric: new cdk.aws_cloudwatch.Metric({
+    namespace: 'AWS/EC2',
+    metricName: 'CPUUtilization',
+  }),
+  threshold: 70,
+  evaluationPeriods: 2,
+});
+// nestF in nestE
+let nestF = new cdk.NestedStack(nestE, 'NestedStackF');
+new cdk.aws_s3.Bucket(nestF, 'nestFBucket', {})
